@@ -1,0 +1,76 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {      
+        $("#insert").click(function() {
+            var nama = $("#nama").val();
+            var no = $("#no").val();
+            var kelas = $("#kelas").val();
+            var judulbuku = $("#judulbuku").val();
+            var tanggal = $("#tanggal").val();
+            var dataString = "nama=" + nama + "&no=" + no + "&kelas=" + kelas +  "&judulbuku=" + judulbuku + "&tanggal=" + tanggal +  "&insert=";
+            if ($.trim(nama).length > 0 & $.trim(no).length > 0 & $.trim(kelas).length > 0 & $.trim(judulbuku).length > 0 & $.trim(tanggal).length > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://galuhwebservice.000webhostapp.com/cordova-master/app-cordova/www/insert.php",
+                    data: dataString,
+                    crossDomain: true,
+                    cache: false,
+                    beforeSend: function() {
+                        $("#insert").val('Loading...');
+                    },
+                    success: function(data) {
+                        if (data == "success") {
+                            alert("Data Sudah Masuk");
+                            $("#insert").val('submit');
+                        } else if (data == "error") {
+                            alert("error");
+                        }
+                    }
+                });
+            }
+            return false;
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">       
+        <h1 class="title">Masukan Data Peminjam</h1>
+        <a class="button button-clear" href="readjson.html">Lihat Data</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>nama</label>
+            <input type="text" id="nama" value="" />
+        </div>
+        <div class="item"> 
+            <label>no</label>
+            <input type="text" id="no" value="" />
+        </div>
+        <div class="item">
+            <label>kelas</label>
+            <input type="text" id="kelas" value="" />
+        </div>
+        <div class="item">
+            <label>judulbuku</label>
+            <input type="text" id="judulbuku" value="" />
+        </div>
+        <div class="item">
+            <label>tanggal</label>
+            <input type="text" id="tanggal" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="insert" class="button button-block" value="Masukan" />
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var url = "https://galuhwebservice.000webhostapp.com/cordova-master/app-cordova/www/json.php";
+        $.getJSON(url, function(result) {
+            console.log(result);
+            $.each(result, function(i, field) {
+                var id = field.id;
+                var nama = field.nama;
+                var no = field.no;
+                var kelas = field.kelas;
+                var judulbuku = field.judulbuku;
+                var tanggal = field.tanggal;
+                $("#listview").append("<a class='item' href='form.html?id=" + id + "&nama=" + nama + "&no=" + no + "&kelas=" + kelas + "&judulbuku=" + judulbuku + "&tanggal=" + tanggal + "'><h2>" + nama + " </h2><h2>" + no + " </h2><h2>" + kelas + " </h2><h2>" + judulbuku + " </h2><p>" + tanggal + "</p></a>");
+            });
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Read Database (JSON)</h1>
+    </div>
+    <br/>
+    <br/>
+    <ul class="list" id="listview">
+    </ul>
+</body>
+
+</html>

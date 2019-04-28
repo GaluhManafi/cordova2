@@ -1,0 +1,113 @@
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="css/ionic.css">
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/geturi.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var id = decodeURI(getUrlVars()["id"]);
+        var nama = decodeURI(getUrlVars()["nama"]);
+        var no = decodeURI(getUrlVars()["no"]);
+        var kelas = decodeURI(getUrlVars()["kelas"]);
+        var judulbuku = decodeURI(getUrlVars()["judulbuku"]);
+        var tanggal= decodeURI(getUrlVars()["tanggal"]);
+        $("#id").val(id);
+        $("#nama").val(nama);
+        $("#no").val(no);
+        $("#kelas").val(kelas);
+        $("#judulbuku").val(judulbuku);
+        $("#tanggal").val(tanggal);
+        $("#update").click(function() {
+            var id = $("#id").val();
+            var nama = $("#nama").val();
+            var no = $("#no").val();
+            var kelas = $("#kelas").val();
+            var judulbuku = $("#judulbuku").val();
+            var tanggal = $("#tanggal").val();
+            var dataString = "id=" + id + "&nama=" + nama + "&no=" + no + "&kelas=" + kelas +  "&judulbuku=" + judulbuku + "&tanggal=" + tanggal +"&update=";
+            $.ajax({
+                type: "POST",
+                url: "https://galuhwebservice.000webhostapp.com/cordova-master/app-cordova/www/update.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#update").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Updated");
+                        $("#update").val("Update");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+        $("#delete").click(function() {
+            var id = $("#id").val();
+            var dataString = "id=" + id + "&delete=";
+            $.ajax({
+                type: "GET",
+                url: "https://galuhwebservice.000webhostapp.com/cordova-master/app-cordova/www/delete.php",
+                data: dataString,
+                crossDomain: true,
+                cache: false,
+                beforeSend: function() {
+                    $("#delete").val('Connecting...');
+                },
+                success: function(data) {
+                    if (data == "success") {
+                        alert("Deleted");
+                        $("#delete").val("Delete");
+                    } else if (data == "error") {
+                        alert("error");
+                    }
+                }
+            });
+
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+        <a href="index.html" class="button button-clear">Home</a>
+        <h1 class="title">Update Database</h1>
+        <a class="button button-clear" href="readjson.html">Read JSON</a>
+    </div>
+    <br/>
+    <br/>
+    <div class="list">
+        <input type="hidden" id="id" value="" />
+        <div class="item">
+            <label>nama</label>
+            <input type="text" id="nama" value="" />
+        </div>
+        <div class="item">
+            <label>no</label>
+            <input type="text" id="no" value="" />
+        </div>
+        <div class="item">
+            <label>kelas</label>
+            <input type="text" id="kelas" value="" />
+        </div>
+        <div class="item">
+            <label>judulbuku</label>
+            <input type="text" id="judulbuku" value="" />
+        </div>
+        <div class="item">
+            <label>tanggal</label>
+            <input type="text" id="tanggal" value="" />
+        </div>
+        <div class="item">
+            <input type="button" id="update" class="button button-block" value="Update" />
+            <input type="button" id="delete" class="button button-block" value="Delete" />
+        </div>
+    </div>
+</body>
+
+</html>
